@@ -38,13 +38,42 @@ public class Almacen {
         stock.add(coche);
     }
 
-    public void getForID() {
+    public String getForID(Int Id) {
+        try {
+			Coche c = null;
+            for(Coche n: stock) {
+                if (Id == n.getId()) {
+                   c = n;
+                   break;
+                }
+            }
+            return g;
+            
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("ID NO EXISTE");
+			return null;
+		}
     }
 
-    public void getAll() {
+    public List<Game> getAll() {
+        return stock;
     }
 
-    public void delForID() {
+    public void delForID(Int Id) {
+        try {
+			Coche c = null;
+            for(Coche n: stock) {
+                if (Id == n.getId()) {
+                   c = n;
+                   break;
+                }
+            }
+			return stock.remove(c);
+			
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("DELETE -> ID NO EXISTE");
+			return false;
+		}
     }
 
 
