@@ -4,77 +4,97 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Almacen {
+	
+	private static String NOMBRE_FICHERO;
 
-    private static String NOMBRE_FICHERO;
+	// Almacena los coches en una lista.
+	private ArrayList<Coche> stock;
 
-    // Almacena los coches en una lista.
-    private ArrayList<Coche> stock;
+	// Constructor
+	public Almacen (String NOMBRE_FICHERO) {
+		super();
+		this.NOMBRE_FICHERO = NOMBRE_FICHERO;
+		// Crea una lista al inicializarse
+		this.setStock(new ArrayList());
+	}
 
-    // Constructor
-    public Almacen (String NOMBRE_FICHERO) {
-        super();
-        this.NOMBRE_FICHERO = NOMBRE_FICHERO;
-        // Crea una lista al inicializarse
-        this.setStock(new ArrayList());
-    }
+	// Getters y setters
+	public static String getNombreFichero() {
+		return NOMBRE_FICHERO;
+	}
 
-    // Getters y setters
-    public static String getNombreFichero() {
-        return NOMBRE_FICHERO;
-    }
+	public ArrayList<Coche> getStock() {
+		return stock;
+	}
 
-    public ArrayList<Coche> getStock() {
-        return stock;
-    }
-
-    public void setStock(ArrayList<Coche> stock) {
-        this.stock = stock;
-    }
-    // Metodos sobreescritos
+	public void setStock(ArrayList<Coche> stock) {
+		this.stock = stock;
+	}
+	
+	// Metodos sobreescritos
 
 
-    // Metodos
-    public void addItem(Coche coche) {
-        stock.add(coche);
-    }
-
-    public String getForID(Int Id) {
-        try {
+   	// Metodos
+	
+	/**
+	* Devuelve todos los coches que esten en la lista del almacen
+	*
+	* @param Objeto coche
+	**/
+	public void addItem(Coche coche) {
+		stock.add(coche);
+		System.out.println("VEHICULO DADO DE ALTA");
+	}
+	
+	/**
+	* Busca en la lista un coche por el id
+	*
+	* @param id del coche 
+	* @return objeto coche
+	**/
+	public Coche getForID(Int id) {
+		try {
 			Coche c = null;
-            for(Coche n: stock) {
-                if (Id == n.getId()) {
-                   c = n;
-                   break;
-                }
-            }
-            return g;
-            
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("ID NO EXISTE");
-			return null;
-		}
-    }
-
-    public List<Game> getAll() {
-        return stock;
-    }
-
-    public void delForID(Int Id) {
-        try {
-			Coche c = null;
-            for(Coche n: stock) {
-                if (Id == n.getId()) {
-                   c = n;
-                   break;
-                }
-            }
-			return stock.remove(c);
+			for(Coche n: stock) {
+				if (id == n.getId()) {
+					c = n;
+					break;
+				}
+			}
+			return c;	
 			
+
 		} catch (IndexOutOfBoundsException e) {
-			System.out.println("DELETE -> ID NO EXISTE");
-			return false;
+			System.out.println("ERROR" + e)
+			return null
 		}
-    }
+	}
+	
+	
+	/**
+	* Devuelve todos los coches que esten en la lista del almacen
+	*
+	* @return todos los elementos del stock.
+	**/
+	public List<Coche> getAll() {
+		return stock;
+    	}
+	
+	/**
+	* Busca si hay un coche con el Id pasado por parametro y si existe lo elimina de la lista
+	*
+	* @param Id del vehiculo
+	* @return cadena con la comfirmacion de la eliminacion y información eliminada o informa que no existe el id si no lo encuentra.
+	**/
+	public String delForID(Int id) {
+		Coche c = getForID(id)
+		if (c == null){
+			return "DELETE -> ID NO EXISTE: " + id;	
+		} else {
+			stock.remove(c);
+			System.out.println("VEHICULO ELIMINADO" + c);
+		}
+	}
 
 
     public void initFile() {
