@@ -1,14 +1,13 @@
-package main.java.request_one;
+package request_one;
 
-import main.java.request_one.entity.Almacen;
-import main.java.request_one.entity.Coche;
 
-import java.io.IOException;
+import request_one.entity.Almacen;
+import request_one.entity.Coche;
 import java.util.Scanner;
 
 public class Server {
     // Ruta fichero
-    public static final String NOMBRE_FICHERO = "stock_data.txt";
+    public static final String NOMBRE_FICHERO = "coches.dat";
 
     public static void main(String[] args) {
         System.out.println("-----------------------------------");
@@ -50,9 +49,10 @@ public class Server {
                 String respuesta = null;
 
                 // Bucle que solicita un numero hasta que el valor introducido sea 1, 2 o 3.
-                while (!answer.equals("3") && !answer.equals("1") && !answer.equals("2")) {
+                while (!answer.equals("1") && !answer.equals("2") && !answer.equals("3") && !answer.equals("4")
+                        && !answer.equals("5")) {
 
-                    System.out.println("Tiene que escoger una de las 3 opciones");
+                    System.out.println("Tiene que escoger una de las 5 opciones");
 
                     // Lee la respuesta del usuario por consola.
                     answer = sc.nextLine();
@@ -64,12 +64,12 @@ public class Server {
                     case "1":
 
                         // Informa de la eleccion del cliente
-                        System.out.println("Ha seleccionado dar de alta un veh�culo");
+                        System.out.println("Ha seleccionado dar de alta un vehiculo");
 
                         // Creamos un nuevo objeto de la clase Coche sin argumentos
                         Coche c1 = new Coche();
 
-                        // Solicita por consola informaci�n del vehiculo.
+                        // Solicita por consola informacion del vehiculo.
                         System.out.println("Introduce la matricula del vehiculo");
                         c1.setMatricula(sc.nextLine());
                         System.out.println("Introduce la marca del vehiculo");
@@ -80,35 +80,32 @@ public class Server {
                         c1.setColor(sc.nextLine());
 
                         alm.addItem(c1);
-
-                        respuesta = "ANADIDO CON EXITO";
-
                         // Salida del Switch.
                         break;
 
                     case "2":
                         // Solicita por consola el ID del coche
-                        System.out.println("Introduce el ID del veh�culo que deseas borrar: ");
+                        System.out.println("Introduce el ID del vehiculo que deseas borrar: ");
 
                         // Lee el ID introducido por consola.
-                        respuesta = alm.delForID(sc.nextLine());
+                        respuesta = alm.delByID(Integer.parseInt(sc.nextLine()));
 
                         // Salida del Switch.
                         break;
 
                     case "3":
                         // Devuelve la lista de coches.
-                        respuesta = alm.getAll();
+                        respuesta = alm.getStock().toString();
 
                         // Salida del Switch.
                         break;
 
                     case "4":
                         // Solicita por consola el ID del coche
-                        System.out.println("Introduce el ID del veh�culo que deseas encontrar: ");
+                        System.out.println("Introduce el ID del vehiculo que deseas encontrar: ");
 
                         // Lee el ID introducido por consola.
-                        respuesta = alm.getForID(sc.nextLine());
+                        respuesta = alm.getById(Integer.parseInt(sc.nextLine())).toString();
 
                         // Salida del Switch.
                         break;
@@ -129,8 +126,6 @@ public class Server {
             }while(flag);
 
             // Captura las posibles excepciones.
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             System.err.println("CLIENTE: Error -> " + e);
             e.printStackTrace();

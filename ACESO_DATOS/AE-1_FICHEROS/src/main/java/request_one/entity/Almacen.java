@@ -1,17 +1,15 @@
-package main.java.request_one.entity;
+package request_one.entity;
 
 import java.io.*;
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+public class Almacen implements Serializable {
 
-public class Almacen {
-	
+	private static final long serialVersionUID = -1856120338726783342L;
 	private static String NOMBRE_FICHERO;
 
 	// Almacena los coches en una lista.
-	private ArrayList<Coche> stock;
+	private ArrayList <Coche> stock;
 
 	// Constructor
 	public Almacen (String NOMBRE_FICHERO) {
@@ -36,13 +34,20 @@ public class Almacen {
 	
 	// Metodos sobreescritos
 
+	@Override
+	public String toString() {
+		return "Almacen{" +
+				"stock=" + stock +
+				'}';
+	}
 
-   	// Metodos
+
+	// Metodos
 	
 	/**
 	* Devuelve todos los coches que esten en la lista del almacen
 	*
-	* @param Objeto coche
+	* @param  coche
 	**/
 	public void addItem(Coche coche) {
 		stock.add(coche);
@@ -55,7 +60,7 @@ public class Almacen {
 	* @param id del coche 
 	* @return objeto coche
 	**/
-	public Coche getForID(Int id) {
+	public Coche getById(int id) {
 		try {
 			Coche c = null;
 			for(Coche n: stock) {
@@ -65,11 +70,10 @@ public class Almacen {
 				}
 			}
 			return c;	
-			
 
 		} catch (IndexOutOfBoundsException e) {
-			System.out.println("ERROR" + e)
-			return null
+			System.out.println("ERROR" + e);
+			return null;
 		}
 	}
 	
@@ -79,23 +83,23 @@ public class Almacen {
 	*
 	* @return todos los elementos del stock.
 	**/
-	public List<Coche> getAll() {
+	public ArrayList<Coche> getAll() {
 		return stock;
     	}
 	
 	/**
 	* Busca si hay un coche con el Id pasado por parametro y si existe lo elimina de la lista
 	*
-	* @param Id del vehiculo
+	* @param id del vehiculo
 	* @return cadena con la comfirmacion de la eliminacion y información eliminada o informa que no existe el id si no lo encuentra.
 	**/
-	public String delForID(Int id) {
-		Coche c = getForID(id)
+	public String delByID(int id) {
+		Coche c = getById(id);
 		if (c == null){
-			return "DELETE -> ID NO EXISTE: " + id;	
+			return "Vehiculo no existe";
 		} else {
 			stock.remove(c);
-			System.out.println("VEHICULO ELIMINADO" + c);
+			return  "Vehiculo borrado: " + c;
 		}
 	}
 
@@ -104,23 +108,27 @@ public class Almacen {
 	*
 	* 
 	**/
-	public void initFile() {
-        
-		try (FileReader fr = new FileReader(NOMBRE_FICHERO);
-		BufferedReader br = new BufferedReader(fr);) {
+	public String initFile() {
 
-		String json = br.readLine();
-		Gson gson = new Gson();
-		List<Coche> stock = gson.fromJson(json, new TypeToken<List<Coche>>(){}.getType());
-			//Persona p = gson.fromJson(json, Persona.class);
-			for(Coche c : stock) {
-				addItem(c);
+		try (FileInputStream file = new FileInputStream(NOMBRE_FICHERO);
+			 ObjectInputStream buffer = new ObjectInputStream(file);){
+			boolean eof = false;
+			Coche c;
+			while (!eof) {
+				try {
+					c = (Coche) buffer.readObject();
+					stock.add(c);
+				} catch (EOFException e1) {
+					eof = true;
+				} catch (IOException e2) {
+					return"Error al leer los coches del almacen" + e2.getMessage();
+				} catch (ClassNotFoundException e3) {
+					return "La clase Coche no está cargada en memoria" + e3.getMessage();
+				}
 			}
-		
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			return "LISTA DE COCHES ACTIVA";
 		} catch (IOException e) {
-			e.printStackTrace();
+			return "No se ha podido abrir el almacen de coches: " + e.getMessage();
 		}
 
 	}
@@ -130,20 +138,16 @@ public class Almacen {
 	*
 	* 
 	**/
-	public void updateFile() {
-		
-		Gson gson = new Gson();
-		String json = gson.toJson(stock);
-	    
-		try(FileWriter fw = new FileWriter(NOMBRE_FICHERO)){
-			
-			fw.write(json);
-			System.out.println("Fichero creado");
-		
+	public String updateFile() {
+		try(FileOutputStream file = new FileOutputStream(NOMBRE_FICHERO, false);
+			ObjectOutputStream buffer = new ObjectOutputStream(file)) {
+			for(Coche c : stock) {
+				buffer.writeObject(c);
+			}
+			return "INFORMACION ACTUALIZADA EN FICHERO";
 		} catch (IOException e) {
-			e.printStackTrace();
+			return "FALLO AL ACTUALIZAR" + e.getMessage();
 		}
-
 	}
 }
 

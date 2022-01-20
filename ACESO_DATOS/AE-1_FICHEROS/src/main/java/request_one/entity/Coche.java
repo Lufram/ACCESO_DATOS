@@ -1,8 +1,12 @@
-package main.java.request_one.entity;
+package request_one.entity;
 
-public class Coche {
+import java.io.Serializable;
+
+public class Coche implements Serializable {
+
+    private static final long serialVersionUID = 884331241851833410L;
     // Variables
-    private Long id;
+    private int id;
     private String matricula;
     private String marca;
     private String modelo;
@@ -12,12 +16,34 @@ public class Coche {
     public Coche() {
         super();
     }
+
     public Coche(String matricula, String marca, String modelo, String color){
         super();
+
         matricula = this.getMatricula();
         marca = this.getMarca();
         modelo = this.getModelo();
         color = this.getColor();
+    }
+
+    public Coche(int id, String matricula, String marca, String modelo, String color){
+        super();
+        id = this.getId();
+        matricula = this.getMatricula();
+        marca = this.getMarca();
+        modelo = this.getModelo();
+        color = this.getColor();
+    }
+
+    @Override
+    public String toString() {
+        return "Coche{" +
+                "id=" + id +
+                ", matricula='" + matricula + '\'' +
+                ", marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", color='" + color + '\'' +
+                '}';
     }
 
     // Getters y setters
@@ -53,7 +79,7 @@ public class Coche {
         this.color = color;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 }
