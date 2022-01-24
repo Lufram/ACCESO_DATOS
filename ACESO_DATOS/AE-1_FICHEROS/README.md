@@ -43,8 +43,7 @@ Hay algunas validaciones en la aplicación para evitar su mal funcionamiento.
     - Nunca se podrán duplicar los Id de los choches almacenados ya que se generan automáticamente teniendo en cuenta los existentes.
     - No se podrán introducir dos coches con la misma matrícula.
     - Solo se pueden seleccionar las opciones mostradas en el menú, en caso de introduccir un valor distinto te lo indicará.
-    - El campo que requiera un número estará validado para que no se puedan introducir otro tipo de datos mediante el método isNumeric()
-
+    - El campo que requiera un número estará validado para que no se puedan introducir otro tipo de datos 
 
 ## Despliegue 📦
 Lo único que hay que hacer es ejecutar la clase Server.java de nuestro proyecto.
