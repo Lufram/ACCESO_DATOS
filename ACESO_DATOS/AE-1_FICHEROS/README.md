@@ -53,14 +53,4 @@ Lo único que hay que hacer es ejecutar la clase Server.java de nuestro proyecto
 * Javier Barón Pérez - (https://github.com/jabaron56)
 * Ismael De Gregorio López - (https://github.com/Lufram)
 * Alberto Lozano Gómez - (https://github.com/Tachenko)
-GitHub
-jabaron56 - Overview
-GitHub is where jabaron56 builds software.
-Imagen
-GitHub
-Lufram - Overview
-Lufram has 13 repositories available. Follow their code on GitHub.
-Imagen
-GitHub
-Tachenko - Overview
-Tachenko has 8 repositories available. Follow their code on GitHub.
+
