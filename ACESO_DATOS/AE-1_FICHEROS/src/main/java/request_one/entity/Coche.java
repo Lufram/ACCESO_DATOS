@@ -4,22 +4,25 @@ import java.io.Serializable;
 
 public class Coche implements Serializable {
 
-    private static final long serialVersionUID = 884331241851833410L;
     // Variables
+
+    private static final long serialVersionUID = 884331241851833410L;
+    private static int CONTADOR_ID = 0;
+
     private int id;
     private String matricula;
     private String marca;
     private String modelo;
     private String color;
 
-    // Constructor
+    // Constructores
     public Coche() {
         super();
     }
 
     public Coche(String matricula, String marca, String modelo, String color){
         super();
-
+        id = ++CONTADOR_ID;
         matricula = this.getMatricula();
         marca = this.getMarca();
         modelo = this.getModelo();
@@ -35,15 +38,17 @@ public class Coche implements Serializable {
         color = this.getColor();
     }
 
+    //toString
+    
     @Override
     public String toString() {
-        return "Coche{" +
+        return "Coche[" +
                 "id=" + id +
-                ", matricula='" + matricula + '\'' +
-                ", marca='" + marca + '\'' +
-                ", modelo='" + modelo + '\'' +
-                ", color='" + color + '\'' +
-                '}';
+                "--- matricula='" + matricula + '\'' +
+                "--- marca='" + marca + '\'' +
+                "--- modelo='" + modelo + '\'' +
+                "--- color='" + color + '\'' +
+                "]\n";
     }
 
     // Getters y setters
@@ -81,5 +86,17 @@ public class Coche implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public static int getContadorId() {
+        return CONTADOR_ID;
+    }
+
+    public static void setContadorId(int contadorId) {
+        CONTADOR_ID = contadorId;
     }
 }
