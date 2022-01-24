@@ -46,7 +46,7 @@ Hay algunas validaciones en la aplicación para evitar su mal funcionamiento.
     - El campo que requiera un número estará validado para que no se puedan introducir otro tipo de datos.
 
 ## Despliegue 📦
-Lo único que hay que hacer es ejecutar la clase Server.java de nuestro proyecto.
+Ejecutar la clase Server.java de nuestro proyecto.
 
 ## Autores ✒️
 * Javier Barón Pérez - (https://github.com/jabaron56)
