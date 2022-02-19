@@ -1,9 +1,11 @@
 package Entity;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
+@Table(name = "books")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +31,27 @@ public class Book {
     public Book(String title, double price) {
         this.title = title;
         this.price = price;
+    }
+
+    public Book(String title, double price, Autor autor) {
+        this.title = title;
+        this.price = price;
+        this.autor = autor;
+    }
+
+    public Book(String title, double price, Editorial editorial, Autor autor) {
+        this.title = title;
+        this.price = price;
+        this.editorial = editorial;
+        this.autor = autor;
+    }
+
+    public Book(Integer id,String title, double price, Editorial editorial, Autor autor) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.editorial = editorial;
+        this.autor = autor;
     }
 
     public Integer getId() {
