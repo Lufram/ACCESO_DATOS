@@ -1,6 +1,8 @@
 package Entity;
 
 import javax.persistence.Embeddable;
+import javax.persistence.OneToOne;
+import java.util.Objects;
 
 @Embeddable
 public class Adress {
@@ -9,6 +11,9 @@ public class Adress {
     private String roadName;
     private int num;
     private String city;
+
+    @OneToOne
+    Library library;
 
     public Adress() {
     }
@@ -50,5 +55,36 @@ public class Adress {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Library getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(Library library) {
+        this.library = library;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Adress)) return false;
+        Adress adress = (Adress) o;
+        return num == adress.num && Objects.equals(roadType, adress.roadType) && Objects.equals(roadName, adress.roadName) && Objects.equals(city, adress.city) && Objects.equals(library, adress.library);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(roadType, roadName, num, city, library);
+    }
+
+    @Override
+    public String toString() {
+        return "Adress{" +
+                "roadType='" + roadType + '\'' +
+                ", roadName='" + roadName + '\'' +
+                ", num=" + num +
+                ", city='" + city + '\'' +
+                '}';
     }
 }
