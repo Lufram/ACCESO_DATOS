@@ -3,8 +3,10 @@ package Entity;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
+@Table(name = "autors")
 public class Autor {
 
     @Id
@@ -65,5 +67,40 @@ public class Autor {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+
+    public void addBook(Book book) {
+        getBooks().add(book);
+        book.setAutor(this);
+    }
+
+    public void removeBook(Book book) {
+        getBooks().remove(book);
+        book.setAutor(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Autor)) return false;
+        Autor autor = (Autor) o;
+        return Objects.equals(id, autor.id) && Objects.equals(name, autor.name) && Objects.equals(sudname, autor.sudname) && Objects.equals(burnDate, autor.burnDate) && Objects.equals(books, autor.books);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, sudname, burnDate, books);
+    }
+
+    @Override
+    public String toString() {
+        return "Autor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sudname='" + sudname + '\'' +
+                ", burnDate=" + burnDate +
+                ", books=" + books +
+                '}';
     }
 }
